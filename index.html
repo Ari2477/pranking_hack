@@ -31,15 +31,6 @@
       overflow-x: hidden; 
     }
 
-    .matrix-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
     .wrap {
       max-width: 920px;
       margin: 36px auto;
@@ -187,8 +178,6 @@
 </head>
 <body>
 
-  <canvas id="matrix-bg" class="matrix-bg"></canvas>
-
   <div class="wrap">
     <h1>HACKING ACCOUNT SITE</h1>
     <p class="lead">Drop or paste a URL (or type it). The site will automatically extract the UID if available — you can edit the name and uid.</p>
@@ -241,40 +230,6 @@
   </div>
 
 <script>
-  const canvas = document.getElementById('matrix-bg');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const matrixChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+{}|:<>?[]\\;\'",./`~';
-  const fontSize = 14;
-  const columns = canvas.width / fontSize;
-  const drops = [];
-
-  for (let x = 0; x < columns; x++) {
-    drops[x] = 1;
-  }
-
-  function draw() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = '#00ff00';
-    ctx.font = fontSize + 'px monospace';
-
-    for (let i = 0; i < drops.length; i++) {
-      const text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
-
-  setInterval(draw, 35);
-
   const API_BASE = 'https://api-canvass.vercel.app/hack';
 
   const dropArea = document.getElementById('dropArea');
